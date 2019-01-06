@@ -12,7 +12,7 @@ const ele = {
 
 const data = {
     username: 'xxxxxxx',
-    password: 'password'
+    password: 'xxxxxxx'
 }
 
 const sizes = [
