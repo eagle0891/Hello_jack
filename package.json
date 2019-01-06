@@ -1,0 +1,15 @@
+{
+  "name": "cypress_jet2",
+  "version": "1.0.0",
+  "description": "Jet2",
+  "main": "index.js",
+  "dependencies": {
+    "cypress": "^3.1.4"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ugo",
+  "license": "ISC"
+}
