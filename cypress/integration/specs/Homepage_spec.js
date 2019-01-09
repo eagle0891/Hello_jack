@@ -19,8 +19,8 @@ const ele = {
 }
 
 const data = {
-    username: 'xxxxxxx',
-    password: 'xxxxxxx',
+    username: '',
+    password: '',
     url: 'https://www.jackpotjoy.com',   
     urlExt: '/forgottenusernamepassword'
 }
@@ -109,7 +109,7 @@ describe('When I navigate to the Jackpotjoy homepage on a ' + size + ' size scre
                             //     cy.get(lobbyLinks.link).click();
                             // })
                         } 
-                        else (cy.viewport(size) === 300, 400) {
+                        else if (cy.viewport(size) === 300, 400) {
                             cy.returnLobbyLinks();
                             cy.log("this is a res of 300,400");
                             // cy.wrap(lobbyLinks).each(lobbyLinks => {
