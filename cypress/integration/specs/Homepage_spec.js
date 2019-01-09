@@ -19,8 +19,10 @@ const ele = {
 }
 
 const data = {
-    username: 'xxxxxx',
-    password: 'xxxxxx'
+    username: 'xxxxxxx',
+    password: 'xxxxxxx',
+    url: 'https://www.jackpotjoy.com',   
+    urlExt: '/forgottenusernamepassword'
 }
 
 const sizes = [
@@ -33,21 +35,20 @@ const sizes = [
 sizes.forEach((size) => {
 describe('When I navigate to the Jackpotjoy homepage on a ' + size + ' size screen', () => {
     beforeEach(() => {
-        cy.fixture("userData").as("credentials");
         cy.visit('/');
-        //cy.setViewport(size);
+        cy.setViewport(size);
     });    
-    
+
     it('should display the login button', () => {
        cy.get(ele.loginLink).should('be.visible'); 
     });
 
-        describe('When I click the Login button', () => {
+        describe('When I click the lobby Login link', () => {
             beforeEach(() => {
                 cy.get(ele.loginLink).click();
             });
-            
-            it('should display quick-login components', () => {
+
+            it('should display quick-login overlay', () => {
                 cy.url().should('include', '/quick-login');
                 cy.get(ele.usernameField).should('be.visible');
                 cy.get(ele.passwordField).should('be.visible');
@@ -59,43 +60,63 @@ describe('When I navigate to the Jackpotjoy homepage on a ' + size + ' size scre
                 cy.get(ele.closeButton).should('be.visible');          
             });
 
-            describe('When I log into the venture', () => {
-                it('should display the lobby', () => {
+            describe('When I enter a username and password', () => {
+                beforeEach(() => {
                     cy.get(ele.usernameField).type(data.username).should('have.value', data.username);
                     cy.get(ele.passwordField).type(data.password).should('have.value', data.password);
-                    cy.get(ele.loginButton).click();    
+                })
+            
+                context('and I click the login button', () => {
+                    it('should display the email verification overlay', () => {
+                        cy.get(ele.loginButton).click();
+                        cy.get(ele.emailVerificationCloseButton).should('be.visible');
+                    });
                 });
-            });
 
-            describe('When I click the forgotten password link', () => {
-                it('should display the forgotten password page', () => {
-                    cy.get(ele.usernameField).type(data.username).should('have.value', data.username);
-                    cy.get(ele.passwordField).type(data.password).should('have.value', data.password);
-                    cy.get(ele.forgottenPasswordLink).click();    
+                context('and I click the forgotten password link', () => {
+                    it('should display the forgotten password page', () => {
+                        cy.get(ele.forgottenPasswordLink).click();
+                        cy.url().should('eq', data.url + data.urlExt);    
+                    });
                 });
-            });
 
-            describe('When I click the lobby menu links', () => {
-                it.only('should display the correct page on each instance', () => {
-                    // cy.get(ele.usernameField).type(this.credentials.username).should('have.value', this.credentials.username);
-                    // cy.get(ele.passwordField).type(this.credentials.password).should('have.value', this.credentials.password);
+                //Work in progress - partly fails
+                describe('When I click the lobby menu links', () => {
+                    it('should display the correct page on each instance', () => {
+                        //cy.viewport(1000, 660);
+                        cy.get(ele.loginButton).click();  
+                        cy.get(ele.emailVerificationCloseButton).click();  
 
-                    cy.get(ele.usernameField).type(data.username).should('have.value', data.username);
-                    cy.get(ele.passwordField).type(data.password).should('have.value', data.password);
-                    cy.get(ele.loginButton).click();  
-                    cy.get(ele.emailVerificationCloseButton).click();  
+                        if (cy.viewport(size) === 'iphone-6') {
+                            cy.returnLobbyLinks();
 
-                    const lobbyLinks = [
-                        {link: ele.lobbyNewLink},
-                        {link: ele.lobbyBingoLink},
-                        {link: ele.lobbyFreeLink},
-                        {link: ele.lobbyCasinoLink},
-                        {link: ele.lobbySlotsLink}
-                    ]
-
-                    cy.wrap(lobbyLinks).each(lobbyLinks => {
-                        cy.get(lobbyLinks.link).click();
-                    })
+                            cy.log("this is a res of iphone6");
+                            // cy.wrap(lobbyLinks).each(lobbyLinks => {
+                            //     cy.get(lobbyLinks.link).click();
+                            // })
+                        } 
+                        else if (cy.viewport(size) === 'ipad-2') {
+                            cy.returnLobbyLinks();
+                            cy.log("this is a res of ipad2");
+                            // cy.wrap(lobbyLinks).each(lobbyLinks => {
+                            //     cy.get(lobbyLinks.link).click();
+                            // })
+                        } 
+                        else if (cy.viewport(size) === 1024, 768) {
+                            cy.returnLobbyLinks();
+                            cy.log("this is a res of 1024, 768");
+                            // cy.wrap(lobbyLinks).each(lobbyLinks => {
+                            //     cy.get(lobbyLinks.link).click();
+                            // })
+                        } 
+                        else (cy.viewport(size) === 300, 400) {
+                            cy.returnLobbyLinks();
+                            cy.log("this is a res of 300,400");
+                            // cy.wrap(lobbyLinks).each(lobbyLinks => {
+                            //     cy.get(lobbyLinks.link).click();
+                            // });
+                        }
+                    });
                 });
             });
         });
