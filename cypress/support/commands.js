@@ -19,7 +19,7 @@ const ele = {
       }
    });
 
-   Cypress.Commands.add('returnLobbyLinks', () => {
+   Cypress.Commands.add('getLobbyLinks', () => {
     const lobbyLinks = [
       {link: ele.lobbyNewLink},
       {link: ele.lobbyBingoLink},
