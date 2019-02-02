@@ -4,13 +4,6 @@ import deviceSize from "../../fixtures/DeviceSizes";
 
 const homepageElements = new HomepageElements();
 
-const sizes = [
-    // 'iphone-6', 
-    // 'ipad-2', 
-    // [1024, 768],
-    [300, 400]
-]
-
 deviceSize.forEach((size) => {
 describe('When I navigate to the Jackpotjoy homepage on a ' + size + ' size screen', () => {
     beforeEach(() => {
