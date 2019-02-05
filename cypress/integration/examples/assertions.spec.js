@@ -13,7 +13,7 @@ context('Assertions', () => {
         .find('tbody tr:last').should('have.class', 'success')
     })
 
-    it('.and() - chain multiple assertions together', () => {
+    it.only('.and() - chain multiple assertions together', () => {
       // https://on.cypress.io/and
       cy.get('.assertions-link')
         .should('have.class', 'active')
